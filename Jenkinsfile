@@ -17,7 +17,7 @@ pipeline{
         stage("deploy"){
             steps{
                 echo "====== deploy stage ======="
-                sh 'mdkir deploy'
+                sh 'mkdir deploy'
                 sh 'cp app.txt deploy/'
                 sh 'ls deploy'
             }
