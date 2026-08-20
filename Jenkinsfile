@@ -22,8 +22,6 @@ pipeline{
             }
         }
         stage("test"){
-            steps{
-                echo "====== test stage ======="
                   
                 parallel{
                     stage("file test"){
@@ -45,7 +43,7 @@ pipeline{
                         }
                     }
                 }
-            }
+            
         }
         stage("deploy"){
             steps{
