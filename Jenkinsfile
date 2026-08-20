@@ -7,7 +7,7 @@ pipeline{
         FILE_TO_TEST='./build-info.txt'
     }
     parameters {
-        string(name: 'SEARCH_WORD',defaultValue: 'yabbadabadoo')
+        string(name: 'SEARCH_WORD')
     }
     
     stages{
