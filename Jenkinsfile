@@ -6,6 +6,10 @@ pipeline{
         DOCKER_REPO="hothaifaz11/"
         FILE_TO_TEST='./build-info.txt'
     }
+    parameters {
+        string(name: 'SEARCH_WORD',defaultValue: 'yabbadabadoo')
+    }
+    
     stages{
         stage("build"){
             steps{
@@ -38,7 +42,7 @@ pipeline{
                     }
                     stage("build info test"){
                         steps{
-                            sh 'python3 test.py wallak'
+                            sh "python3 test.py ${params.SEARCH_WORD}"
                             
                         }
                     }
