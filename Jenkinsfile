@@ -14,7 +14,7 @@ pipeline{
                 sh 'echo "welcome to the pipeline of applciation ${APP_NAME}\n we are in version ${APP_VERSION}" '
                 sh '''
                     echo "application name: $APP_NAME ">> $FILE_TO_TEST
-                    echo "$BUILD_NUMER ">> $FILE_TO_TEST
+                    echo "$BUILD_NUMBER ">> $FILE_TO_TEST
                     date >> $FILE_TO_TEST
                     '''
                 sh 'ls'
@@ -24,8 +24,27 @@ pipeline{
         stage("test"){
             steps{
                 echo "====== test stage ======="
-                sh 'test -f app.txt'
-                echo "for any details please visit: ${JOB_URL}. for build #${BUILD_NUMBER}"
+                  
+                parallel{
+                    stage("file test"){
+                        steps{
+                            sh '''
+                                if [ -f app.txt ]; then
+                                    echo app exists
+                                else
+                                    echo ERROR: app.txt does not exist
+                                    exit 1
+                                fi
+                            '''
+                        }
+                    }
+                    stage("build info test"){
+                        steps{
+                            sh 'python3 test.py wallak'
+                            
+                        }
+                    }
+                }
             }
         }
         stage("deploy"){
